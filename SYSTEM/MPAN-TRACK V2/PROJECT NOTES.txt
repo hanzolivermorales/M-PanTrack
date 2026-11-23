@@ -1,0 +1,18 @@
+IMPLEMENTATION NOTES
+===================
+
+The app UI was built against the requirements and sample screen flow in OOP DOCZ(1).pdf.
+- Page 22: Material 3 and hunter-green interface guidance.
+- Page 23: navigation flow among login, role dashboards, map, products, schedules, and details.
+- Page 24: login, administrator dashboard, map, and vendor product-form wireframe.
+- Pages 4-8: user roles, functional requirements, access matrix.
+- Pages 15-20: OOP model and repository specifications.
+- Pages 25-36: data design, test cases, and Gradle versions.
+
+Current runnable demo mode:
+- In-memory seeded records and test accounts.
+- Local registration and role-based login.
+- Admin and vendor record forms; product availability and price validation; coordinate and schedule validation.
+- Customer search and selectable selling-location pins.
+
+The document describes a Firebase-backed production app. A Firebase project config was not uploaded, so live cross-device Authentication/Firestore behavior cannot be activated from this package alone. The dependencies and optional Google Services plugin hook are present; add your own google-services.json and implement/enable the Firebase repository calls before treating this as the deployed cloud version. Never commit a private Firebase config or expose admin credentials.

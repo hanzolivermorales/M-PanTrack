@@ -1,0 +1,48 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function myUser() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    function isAdmin() { return signedIn() && myUser().role == 'ADMIN' && myUser().isActive == true; }
+    function isActiveUser() { return signedIn() && myUser().isActive == true; }
+    function isVendor() { return isActiveUser() && myUser().role == 'VENDOR'; }
+    function ownsVendor(vendorId) { return isVendor() && myUser().vendorId == vendorId; }
+
+    match /users/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow create: if signedIn() && request.auth.uid == uid
+        && request.resource.data.role == 'CUSTOMER'
+        && request.resource.data.isActive == true;
+      allow update: if isAdmin() || (signedIn() && request.auth.uid == uid
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.isActive == resource.data.isActive);
+      allow delete: if isAdmin();
+    }
+    match /vendors/{vendorId} {
+      allow read: if isActiveUser();
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin() || (isVendor() && resource.data.userId == request.auth.uid);
+    }
+    match /products/{productId} {
+      allow read: if isActiveUser();
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin() || ownsVendor(resource.data.vendorId);
+    }
+    match /sellingLocations/{locationId} {
+      allow read: if isActiveUser();
+      allow write: if isAdmin();
+    }
+    match /schedules/{scheduleId} {
+      allow read: if isActiveUser();
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin() || ownsVendor(resource.data.vendorId);
+    }
+    match /activityRecords/{recordId} {
+      allow read: if isAdmin();
+      allow create: if isAdmin() || isVendor();
+      allow update, delete: if false;
+    }
+  }
+}

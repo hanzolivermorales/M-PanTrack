@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "820219602644",
+    "project_id": "mpan-track-v2",
+    "storage_bucket": "mpan-track-v2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:820219602644:android:f3d541511cf3e67126fd41",
+        "android_client_info": {
+          "package_name": "com.r1cz.mpantrack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClx1ZLWHE2YtBrEJhZCO7q9qlU9DZSsaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.MPANTrack" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#3A6B3D</item>
+        <item name="android:statusBarColor">#122814</item>
+        <item name="android:navigationBarColor">#122814</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>
